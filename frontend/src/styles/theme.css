@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Lalezar&display=swap');
+
+:root{
+  --ink:#150F0D;
+  --ink-2:#1F1714;
+  --ink-3:#28201C;
+  --ivory:#F3EAE0;
+  --ivory-dim:#CDBFAF;
+  --ivory-faint:#8F8177;
+  --gold:#C79A5B;
+  --gold-dim:#8C7146;
+  --gold-wash: rgba(199,154,91,0.16);
+  --line: rgba(243,234,224,0.14);
+  --line-2: rgba(243,234,224,0.20);
+  --danger:#C25450;
+  --danger-wash: rgba(194,84,80,0.14);
+  --success:#7FA876;
+  --success-wash: rgba(127,168,118,0.14);
+  --radius: 8px;
+  --font-body: 'Vazirmatn', sans-serif;
+  --font-display: 'Lalezar', 'Vazirmatn', sans-serif;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ink);
+  color:var(--ivory);
+  font-family:var(--font-body);
+  min-height:100vh;
+}
+a{color:var(--gold); text-decoration:none;}
+a:hover{color:var(--ivory);}
+button, input, select, textarea{font-family:inherit; font-size:1rem;}
+button{cursor:pointer;}
+
+.display{font-family:var(--font-display); font-weight:400; letter-spacing:0.5px;}
+.flex{display:flex;}
+.items-center{align-items:center;}
+.justify-center{justify-content:center;}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 26px; border-radius:11px; font-size:0.92rem; border:1px solid transparent;
+  transition:all .2s; white-space:nowrap; background:none; appearance:none;
+}
+.btn-primary{background:var(--gold); color:var(--ink); font-weight:700;}
+.btn-primary:hover{background:var(--ivory);}
+.btn-primary:disabled{opacity:0.5; cursor:not-allowed;}
+.btn-ghost{border-color:var(--line-2); color:var(--ivory);}
+.btn-ghost:hover{border-color:var(--gold); color:var(--gold);}
+.btn-sm{padding:8px 16px; font-size:0.82rem;}
+.btn-block{width:100%;}
+
+.field{margin-bottom:18px;}
+.field label{display:block; font-size:0.85rem; color:var(--ivory-dim); margin-bottom:8px;}
+.field input{
+  width:100%; background:var(--ink-2); border:1px solid var(--line); color:var(--ivory);
+  padding:12px 14px; border-radius:10px; transition:border-color .2s; outline:none;
+}
+.field input:focus{border-color:var(--gold);}
+.field-error{color:var(--danger); font-size:0.8rem; margin-top:6px;}
+
+.spinner{
+  width:20px; height:20px; border:2px solid var(--line); border-top-color:var(--gold);
+  border-radius:50%; animation:spin .8s linear infinite; display:inline-block;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.toast-stack{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:999;
+  display:flex; flex-direction:column; gap:10px; align-items:center; width:90%; max-width:400px;
+}
+.toast{
+  padding:13px 22px; border-radius:10px; font-size:0.86rem; background:var(--ink-3);
+  border:1px solid var(--line); color:var(--ivory); box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  animation:toast-in .2s ease; text-align:center;
+}
+.toast-success{border-color:var(--success); color:var(--success);}
+.toast-error{border-color:var(--danger); color:var(--danger);}
+@keyframes toast-in{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
