@@ -2,6 +2,7 @@ import client from './client';
 
 export const getToday = () => client.get('/today');
 export const getTeam = () => client.get('/team');
+export const createTeamMember = (payload) => client.post('/team', payload);
 
 export const listIdeas = () => client.get('/ideas');
 export const createIdea = (title) => client.post('/ideas', { title });

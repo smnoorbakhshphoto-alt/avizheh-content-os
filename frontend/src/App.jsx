@@ -9,6 +9,7 @@ import Ideas from './pages/Ideas';
 import More from './pages/More';
 import QuickAdd from './pages/QuickAdd';
 import ContentDetail from './pages/ContentDetail';
+import Team from './pages/Team';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         </Route>
         <Route path="/new" element={<QuickAdd />} />
         <Route path="/content/:id" element={<ContentDetail />} />
+        <Route path="/team" element={<Team />} />
       </Route>
 
       <Route path="/" element={<Navigate to="/today" replace />} />

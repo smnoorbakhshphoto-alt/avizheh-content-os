@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS team_members (
   full_name       VARCHAR(150) NOT NULL,
   username        VARCHAR(50)  UNIQUE NOT NULL,
   password_hash   VARCHAR(255) NOT NULL,
+  role            VARCHAR(20)  NOT NULL DEFAULT 'member', -- member | admin
   created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );

@@ -2,7 +2,7 @@ const express = require('express');
 const { body } = require('express-validator');
 const router = express.Router();
 
-const { requireAuth } = require('../middleware/auth.middleware');
+const { requireAuth, requireAdmin } = require('../middleware/auth.middleware');
 const validate = require('../middleware/validate');
 
 const todayController = require('../controllers/today.controller');
@@ -14,6 +14,7 @@ router.use(requireAuth);
 router.get('/today', todayController.today);
 
 router.get('/team', contentController.listTeam);
+router.post('/team', requireAdmin, contentController.createTeamMember);
 
 router.get('/content', contentController.list);
 router.get('/content/:id', contentController.getOne);

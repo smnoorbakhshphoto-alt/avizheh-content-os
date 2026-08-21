@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function More() {
-  const { member, logout } = useAuth();
+  const { member, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   function handleLogout() {
@@ -24,6 +24,11 @@ export default function More() {
         </div>
       </div>
 
+      {isAdmin && (
+        <button type="button" className="btn btn-ghost btn-block" style={{ marginBottom: 12 }} onClick={() => navigate('/team')}>
+          مدیریت تیم
+        </button>
+      )}
       <button type="button" className="btn btn-ghost btn-block" onClick={handleLogout}>خروج از حساب</button>
     </div>
   );

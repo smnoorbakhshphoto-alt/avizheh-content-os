@@ -4,6 +4,7 @@ const contentItemModel = require('../models/contentItem.model');
 const contentTaskModel = require('../models/contentTask.model');
 const contentIdeaModel = require('../models/contentIdea.model');
 const teamMemberModel = require('../models/teamMember.model');
+const passwordUtil = require('../utils/password');
 
 const CONTENT_TYPES = ['reel', 'post', 'story', 'carousel', 'photo'];
 
@@ -83,4 +84,30 @@ const listTeam = asyncHandler(async (req, res) => {
   res.json({ success: true, data: members });
 });
 
-module.exports = { list, getOne, create, completeTask, publish, listTeam };
+const USERNAME_REGEX = /^[a-zA-Z0-9_]{3,30}$/;
+
+// POST /api/team  (فقط ادمین)
+const createTeamMember = asyncHandler(async (req, res) => {
+  const { fullName, username, password, role } = req.body;
+
+  if (!fullName || !fullName.trim()) throw new AppError('نام کامل الزامی است.', 422, 'FULL_NAME_REQUIRED');
+  if (!USERNAME_REGEX.test(username || '')) {
+    throw new AppError('نام کاربری باید ۳ تا ۳۰ حرف انگلیسی، عدد یا _ باشد.', 422, 'INVALID_USERNAME');
+  }
+  if (!password || password.length < 8) throw new AppError('رمز عبور باید حداقل ۸ کاراکتر باشد.', 422, 'INVALID_PASSWORD');
+  if (role && !['member', 'admin'].includes(role)) throw new AppError('سطح دسترسی نامعتبر است.', 422, 'INVALID_ROLE');
+
+  if (await teamMemberModel.existsByUsername(username)) {
+    throw new AppError('این نام کاربری قبلاً استفاده شده است.', 409, 'USERNAME_TAKEN');
+  }
+
+  const member = await teamMemberModel.create({
+    fullName: fullName.trim(),
+    username,
+    passwordHash: passwordUtil.hashPassword(password),
+    role: role || 'member',
+  });
+  res.status(201).json({ success: true, data: member });
+});
+
+module.exports = { list, getOne, create, completeTask, publish, listTeam, createTeamMember };

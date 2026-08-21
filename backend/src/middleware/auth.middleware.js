@@ -24,4 +24,11 @@ const requireAuth = asyncHandler(async (req, res, next) => {
   next();
 });
 
-module.exports = { requireAuth };
+const requireAdmin = (req, res, next) => {
+  if (req.member?.role !== 'admin') {
+    throw new AppError('این بخش فقط برای مدیران است.', 403, 'FORBIDDEN');
+  }
+  next();
+};
+
+module.exports = { requireAuth, requireAdmin };
